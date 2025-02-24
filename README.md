@@ -6,4 +6,4 @@ Motivated by these challenges, this project aims to develop a machine learning m
 
 The aim of this project is to develop a machine learning model capable of accurately detecting deepfake audio by analyzing and distinguishing between real and AI-generated audio clips. 
 
-Using a dataset of over 2,100 audio samples, the model is trained on various audio features, including file size, spectral centroid mean, spectral bandwidth mean, RMS mean, zero-crossing rate mean, spectral contrast mean, pitch mean, pitch confidence mean, mel spectrogram mean, mel spectrogram variance, energy mean, and speech rate, to identify patterns and markers indicative of deepfake audio.
+Using a dataset of around 2000 audio samples, the model is trained on various audio features, including file size, spectral centroid mean, spectral bandwidth mean, RMS mean, zero-crossing rate mean, spectral contrast mean, pitch mean, pitch confidence mean, mel spectrogram mean, mel spectrogram variance, energy mean, and speech rate, to identify patterns and markers indicative of deepfake audio.
