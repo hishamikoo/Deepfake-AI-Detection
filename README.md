@@ -2,6 +2,10 @@
 
 📄 [Full Detailed Research Report (PDF)](https://github.com/hishamikoo/Deepfake-AI-Detection/blob/main/Research%20Paper%20-%20WaveTruth.pdf)
 
+The raw audio clips dataset used for this project is available on [Google Drive](https://drive.google.com/drive/u/0/folders/1joD1gSSAzIXuPOoOuYL1Tn-WiEehtvMY).
+
+The feature-extracted dataset in CSV format is available in the [audio_dataset folder](./dataset/) under the main branch.
+
 
 ## Overview
 The rapid advancement of artificial intelligence in speech synthesis has led to an increase in AI-generated voices that closely mimic human speech. **WaveTruth** is a deep learning-based system designed to:
