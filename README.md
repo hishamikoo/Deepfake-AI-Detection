@@ -59,10 +59,15 @@ WaveTruth is deployed as a **Django-based web application**, allowing users to:
 ## Installation & Usage
 ### Prerequisites
 - Python 3.8+
-- TensorFlow/PyTorch
+- TensorFlow
 - Django
 - Librosa (for audio processing)
-- NumPy, Pandas, Matplotlib (for analysis)
+- NumPy, Pandas, Matplotlib & Seaborn (for analysis)
+- scikit-learn
+- LabelEncoder and OneHotEncoder (for categorical feature encoding)
+- Dense, Dropout, BatchNormalization, and Activation layers
+- Optimizers - Adam, SGD, RMSprop, Adagrad
+- Sequential and Functional API models
 
 
 ## Results & Key Findings
