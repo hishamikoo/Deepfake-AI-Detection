@@ -1,5 +1,8 @@
 # WaveTruth: AI-Generated Voice Detection & Gender Classification
 
+![WaveTruth UI](research paper - WaveTruth.pdf)
+
+
 ## Overview
 The rapid advancement of artificial intelligence in speech synthesis has led to an increase in AI-generated voices that closely mimic human speech. **WaveTruth** is a deep learning-based system designed to:
 - Distinguish **AI-generated voices** from real human voices.
