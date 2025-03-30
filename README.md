@@ -9,7 +9,9 @@ The rapid advancement of artificial intelligence in speech synthesis has led to 
 - **Classify gender** (male/female) of both AI-generated and real voices.
 - Provide an **interactive web application** for real-time voice detection.
 
-This project leverages **Transfer Learning with Feedforward Neural Networks (FFNN)** to achieve state-of-the-art accuracy in deepfake speech detection.
+This project uses **Transfer Learning with Feedforward Neural Networks (FFNN)** to achieve state-of-the-art accuracy in deepfake speech detection.
+
+![Pipeline](Images/Pipeline.png)
 
 ## Project Features
 - **Custom Dataset**: 1,956 audio clips (~2.7 hours) covering real and AI-generated voices from diverse accents (Canadian, Australian, Indian, American, English, European, and African).
@@ -22,6 +24,12 @@ This project leverages **Transfer Learning with Feedforward Neural Networks (FFN
   - AI-generated content filtering.
   - Voice biometrics & authentication.
 
+
+![visualization](Images/transfer-learning-visualization.png)
+
+
+
+
 ## Dataset & Processing
 1. **Data Collection**: Real voices sourced from podcasts, speeches, and lectures; AI voices generated using various TTS models.
 2. **Preprocessing**:
@@ -29,11 +37,18 @@ This project leverages **Transfer Learning with Feedforward Neural Networks (FFN
    - Normalization to a fixed decibel level.
    - Feature extraction: Spectral centroid, bandwidth, contrast, pitch mean, Mel spectrogram, speech rate, and more.
 
+![CM](Images/Correlation-Matrix.png)
+
+
+
 ## Model Selection & Performance
 A comparative analysis of machine learning and deep learning models was conducted:
 - **Traditional Models**: kNN, Naïve Bayes, Decision Trees, Logistic Regression, SVM, Random Forest, XGBoost, CatBoost, etc.
 - **Deep Learning Models**: Feedforward Neural Networks (FFNN), Recurrent Neural Networks (RNN), Transfer Learning-based FFNN.
-- **Best Model**: Transfer Learning FFNN outperformed all others, achieving **90%+ accuracy** in distinguishing AI-generated vs. real voices.
+- **Best Model**: Deep Learning models outperformed all others, achieving **90%+ accuracy** in distinguishing AI-generated vs. real voices.
+
+![Performance](Images/Model-performances.png)
+
 
 ## Web Application
 WaveTruth is deployed as a **Django-based web application**, allowing users to:
