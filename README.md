@@ -25,7 +25,7 @@ This project uses **Transfer Learning with Feedforward Neural Networks (FFNN)** 
   - Voice biometrics & authentication.
 
 
-![visualization](Images/transfer-learning-visualization.png)
+![visualization](Images/model%20visualization.png)
 
 
 
