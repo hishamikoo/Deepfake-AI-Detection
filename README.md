@@ -1,6 +1,6 @@
 # WaveTruth: AI-Generated Voice Detection & Gender Classification
 
-📄 [Download the Full Detailed Research Report (PDF)](https://github.com/hishamikoo/Deepfake-AI-Detection/report.pdf)
+📄 [Full Detailed Research Report (PDF)](https://github.com/hishamikoo/Deepfake-AI-Detection/blob/main/Research%20Paper%20-%20WaveTruth.pdf)
 
 
 ## Overview
