@@ -4,7 +4,7 @@
 
 📊🎧The raw audio clips dataset used for this project is available on [Google Drive](https://drive.google.com/drive/u/0/folders/1joD1gSSAzIXuPOoOuYL1Tn-WiEehtvMY).
 
-📊 The feature-extracted dataset in CSV format is available in the [audio_dataset folder](./dataset/) under the main branch.
+📊 The feature-extracted dataset in Excel format is available in the [audio_dataset folder](./dataset/) under the main branch.
 
 
 ## Overview
