@@ -43,15 +43,20 @@ This project uses **Transfer Learning with Feedforward Neural Networks (FFNN)** 
 
 ![CM](Images/Correlation-Matrix.png)
 
+## Results & Key Findings
+- Traditional models like **kNN and Naïve Bayes** struggled with complex audio features.
+- **Tree-based models (Random Forest, XGBoost, CatBoost)** performed significantly better (75%-90% accuracy).
+- **Deep learning models (FFNN, RNN)** outperformed traditional methods, with Transfer Learning FFNN achieving the highest accuracy.
+- Gender classification was successfully integrated, improving the model's practical applications.
 
+![Performance](Images/Model-performances.png)
 
 ## Model Selection & Performance
 A comparative analysis of machine learning and deep learning models was conducted:
 - **Traditional Models**: kNN, Naïve Bayes, Decision Trees, Logistic Regression, SVM, Random Forest, XGBoost, CatBoost, etc.
 - **Deep Learning Models**: Feedforward Neural Networks (FFNN), Recurrent Neural Networks (RNN), Transfer Learning-based FFNN.
-- **Best Model**: Deep Learning models outperformed all others, achieving **90%+ accuracy** in distinguishing AI-generated vs. real voices.
+- **Selected Model**: Tranfer Learning Based Deep Learning models outperformed all others in terms of generlization, achieving **90%+ accuracy** in distinguishing AI-generated vs. real voices.
 
-![Performance](Images/Model-performances.png)
 
 
 ## Web Application
@@ -73,12 +78,6 @@ WaveTruth is deployed as a **Django-based web application**, allowing users to:
 - Optimizers - Adam, SGD, RMSprop, Adagrad
 - Sequential and Functional API models
 
-
-## Results & Key Findings
-- Traditional models like **kNN and Naïve Bayes** struggled with complex audio features.
-- **Tree-based models (Random Forest, XGBoost, CatBoost)** performed significantly better (75%-90% accuracy).
-- **Deep learning models (FFNN, RNN)** outperformed traditional methods, with Transfer Learning FFNN achieving the highest accuracy.
-- Gender classification was successfully integrated, improving the model's practical applications.
 
 ## Future Improvements
 - Expand dataset with more diverse voices and languages.
