@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Voice Classification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #292525;
+            margin: 0;
+            padding: 0;
+            color: #e0e0e0;
+        }
+        h2 {
+            text-align: center;
+            color: #d1b3ea;
+            margin-top: 50px;
+            text-shadow: 0 0 8px rgba(106, 140, 255, 0.3);
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            border: 1px solid #2d2d2d;
+        }
+        input[type="file"] {
+            padding: 10px;
+            background-color: #2d2d2d;
+            color: white;
+            border: 1px solid #3d3d3d;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+            display: block;
+            width: 80%;
+        }
+        input[type="file"]:hover {
+            background-color: #3d3d3d;
+            border-color: #6a8cff;
+            box-shadow: 0 0 8px rgba(106, 140, 255, 0.3);
+        }
+        #uploadButton, #resetButton {
+            padding: 12px 24px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px; 
+            transition: all 0.3s ease;
+            display: inline-block; 
+            width: 45%; 
+            font-weight: 500;
+            box-sizing: border-box; 
+        }
+        #uploadButton {
+            background-color: #9c62cc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #uploadButton:hover {
+            background-color: #b178df;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        #uploadButton:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #resetButton {
+            background-color: #5c2e3a;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #resetButton:hover {
+            background-color: #6d3e4a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        #resetButton:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #audioPlayback {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #3d3d3d;
+            background-color: #2d2d2d;
+            transition: opacity 0.5s ease;
+        }
+        #uploadButton, #resetButton {
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+        #predictionResult, #loadingIndicator {
+            margin-top: 20px;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            color: #e0e0e0;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #2d2d2d;
+            border-radius: 5px;
+            margin-top: 10px;
+            height: 25px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            border: 1px solid #3d3d3d;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            line-height: 25px;
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-in-out, background-color 0.3s ease;
+            background: linear-gradient(90deg, #9c62cc, #bc9ed5);
+        }
+        .button-container {
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        h3 {
+            color: #9c62cc;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #3d3d3d;
+            padding-bottom: 8px;
+        }
+        .prediction-item {
+            margin-bottom: 15px;
+            background-color: #252525;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #9c62cc;
+            transition: opacity 0.5s ease;
+        }
+        .prediction-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .fade-out {
+            opacity: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload Voice Audio:🎙️ 🎧</h2>
+    <div class="container">
+        <input type="file" id="fileInput" accept=".mp3">
+        <audio id="audioPlayback" controls style="display:none;"></audio>
+        <div class="button-container">
+            <button id="uploadButton">Upload 🎤</button>
+            <button id="resetButton">Reset 🔇</button>
+        </div>
+        <p id="loadingIndicator">Predicting, please wait...</p>
+        <div id="predictionResult"></div>
+    </div>
+
+    <script>
+        function fadeIn(element) {
+            element.style.opacity = '1';
+        }
+        function fadeOut(element) {
+            element.style.opacity = '0';
+        }
+
+        const labelMapping = {
+            "F_AI": "Female (AI)",
+            "F_REAL": "Female (Real)",
+            "M_AI": "Male (AI)",
+            "M_REAL": "Male (Real)"
+        };
+
+        document.getElementById("fileInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file && file.type === "audio/mpeg") {
+                const audioUrl = URL.createObjectURL(file);
+                const audioPlayback = document.getElementById("audioPlayback");
+                audioPlayback.style.display = "block";
+                audioPlayback.src = audioUrl;
+                
+                const uploadButton = document.getElementById("uploadButton");
+                const resetButton = document.getElementById("resetButton");
+                uploadButton.style.display = "inline-block";
+                resetButton.style.display = "inline-block";
+                fadeIn(uploadButton);
+                fadeIn(resetButton);
+
+                document.getElementById("predictionResult").innerHTML = '';
+                fadeOut(document.getElementById("loadingIndicator"));
+            } else {
+                document.getElementById("predictionResult").innerText = "Please upload a valid MP3 file.";
+                document.getElementById("audioPlayback").style.display = "none";
+                document.getElementById("uploadButton").style.display = "none";
+                document.getElementById("resetButton").style.display = "none";
+            }
+        });
+
+        document.getElementById("uploadButton").addEventListener("click", function() {
+            const file = document.getElementById("fileInput").files[0];
+            if (!file) return;
+            
+            fadeIn(document.getElementById("loadingIndicator"));
+            let formData = new FormData();
+            formData.append("audio_file", file);
+
+            const csrfToken = document.querySelector('[name=csrf-token]').content;
+
+            fetch("/upload_audio/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                fadeOut(document.getElementById("loadingIndicator"));
+                if (data.predictions) {
+                    let outputHtml = "<h3>Predictions</h3>";
+                    for (let label in data.predictions) {
+                        const displayLabel = labelMapping[label] || label;
+                        const percentage = (data.predictions[label] * 100).toFixed(2);
+                        outputHtml += `
+                            <div class="prediction-item">
+                                <div class="prediction-label">
+                                    <span>${displayLabel}</span>
+                                    <span>${percentage}%</span>
+                                </div>
+                                <div class="progress-container" style="opacity:1;">
+                                    <div class="progress-bar" id="bar-${label}">
+                                        ${percentage}%
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    document.getElementById("predictionResult").innerHTML = outputHtml;
+                    fadeIn(document.getElementById("predictionResult"));
+                    
+                    setTimeout(() => {
+                        for (let label in data.predictions) {
+                            document.getElementById(`bar-${label}`).style.width = `${data.predictions[label] * 100}%`;
+                        }
+                    }, 300);
+                } else {
+                    document.getElementById("predictionResult").innerText = "Prediction not available. Error: " + (data.error || "Unknown error");
+                }
+            })
+            .catch(error => {
+                fadeOut(document.getElementById("loadingIndicator"));
+                console.error('Error:', error);
+                document.getElementById("predictionResult").innerText = "Error occurred while making the prediction.";
+            });
+        });
+
+        document.getElementById("resetButton").addEventListener("click", function() {
+            // Fade out all elements first
+            const elementsToFade = [
+                document.getElementById("audioPlayback"),
+                document.getElementById("uploadButton"),
+                document.getElementById("predictionResult"),
+                document.getElementById("resetButton")
+            ];
+            
+            // Add fade-out class to all elements
+            elementsToFade.forEach(element => {
+                if (element) {
+                    element.classList.add('fade-out');
+                }
+            });
+            
+            // Wait for fade-out to complete before resetting
+            setTimeout(() => {
+                // Reset the file input
+                document.getElementById("fileInput").value = "";
+                
+                // Hide elements after fade-out
+                document.getElementById("audioPlayback").style.display = "none";
+                document.getElementById("uploadButton").style.display = "none";
+                document.getElementById("resetButton").style.display = "none";
+                
+                // Clear any results
+                document.getElementById("predictionResult").innerHTML = "";
+                fadeOut(document.getElementById("loadingIndicator"));
+                
+                // Remove fade-out class
+                elementsToFade.forEach(element => {
+                    if (element) {
+                        element.classList.remove('fade-out');
+                        element.style.opacity = ''; // Reset opacity
+                    }
+                });
+            }, 500); // Match this duration with your CSS transition time
+        });
+    </script>
+</body>
+</html>
