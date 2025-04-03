@@ -45,7 +45,9 @@ This project uses **Transfer Learning with Feedforward Neural Networks (FFNN)** 
 2. **Preprocessing**:  
    - 🎵 Audio split into 5-second clips.  
    - 🎛️ Normalization to a fixed decibel level.  
-   - 📊 Feature extraction: Spectral centroid, bandwidth, contrast, pitch mean, Mel spectrogram, speech rate, and more.  
+   - 📊 Feature extraction: Spectral centroid, bandwidth, contrast, pitch mean, Mel spectrogram, speech rate, and more.
+   - MinMax Scaling of Extracted Features.
+   - Principal Compnent Analyisis.
 
 <p align="center">
   <img src="Images/Correlation-Matrix.png" alt="Correlation Matrix" />
@@ -56,7 +58,7 @@ This project uses **Transfer Learning with Feedforward Neural Networks (FFNN)** 
 ## 🎯 Results & Key Findings  
 - 🚨 Traditional models like **kNN and Naïve Bayes** struggled with complex audio features.  
 - 🌳 **Tree-based models (Random Forest, XGBoost, CatBoost)** performed significantly better (75%-90% accuracy).  
-- 🤖 **Deep learning models (FFNN, RNN)** outperformed traditional methods, with **Transfer Learning FFNN achieving the highest accuracy**.  
+- 🤖 **Deep learning models (FFNN, RNN)** outperformed traditional methods, with **Transfer Learning FFNN achieving the maximum generalization**.  
 - 🚻 Gender classification was successfully integrated, improving the model's practical applications.  
 
 <p align="center">
