@@ -81,7 +81,9 @@ WaveTruth is deployed as a **Django-based web application**, allowing users to:
 🎵 Upload an audio file.  
 🧠 Get real-time predictions on whether the voice is AI-generated or real.  
 🚻 Determine the gender of the speaker.  
-
+<p align="center">
+  <img src="Images/WaveTruth.gif" alt="Correlation Matrix" />
+</p>
 ---
 
 ## 🚀 Installation & Usage  
