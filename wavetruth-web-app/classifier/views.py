@@ -25,7 +25,6 @@ features_mean = joblib.load(features_mean_path)
 pca_model_path = "Models\\pca_model.pkl"
 pca = joblib.load(pca_model_path)
 
-# Load the trained model (ensure this is correctly loaded)
 model_path = "Models\\transfer_learning_model.keras"
 model = tf.keras.models.load_model(model_path)
 
